@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -21,6 +21,8 @@ interface Stats {
   correct: number;
   wrong: number;
   streak: number;
+  totalTime: number;
+  avgTime: number;
 }
 
 const Index = () => {
@@ -29,8 +31,10 @@ const Index = () => {
   const [difficulty, setDifficulty] = useState<DifficultyLevel>('easy');
   const [currentTask, setCurrentTask] = useState<Task | null>(null);
   const [userInput, setUserInput] = useState('');
-  const [stats, setStats] = useState<Stats>({ total: 0, correct: 0, wrong: 0, streak: 0 });
+  const [stats, setStats] = useState<Stats>({ total: 0, correct: 0, wrong: 0, streak: 0, totalTime: 0, avgTime: 0 });
   const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
+  const [timer, setTimer] = useState(0);
+  const [timerActive, setTimerActive] = useState(false);
 
   const generateNumeralSystemTask = (level: DifficultyLevel): Task => {
     const systems = [2, 8, 10, 16];
@@ -88,7 +92,7 @@ const Index = () => {
   const startTraining = (type: TaskType, level: DifficultyLevel) => {
     setTaskType(type);
     setDifficulty(level);
-    setStats({ total: 0, correct: 0, wrong: 0, streak: 0 });
+    setStats({ total: 0, correct: 0, wrong: 0, streak: 0, totalTime: 0, avgTime: 0 });
     generateNewTask(type, level);
     setCurrentView('training');
   };
@@ -96,6 +100,8 @@ const Index = () => {
   const generateNewTask = (type: TaskType, level: DifficultyLevel) => {
     setUserInput('');
     setFeedback(null);
+    setTimer(0);
+    setTimerActive(true);
     
     const task = type === 'numeral-system' 
       ? generateNumeralSystemTask(level)
@@ -104,20 +110,43 @@ const Index = () => {
     setCurrentTask(task);
   };
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    
+    if (timerActive && feedback === null) {
+      interval = setInterval(() => {
+        setTimer(prev => prev + 10);
+      }, 10);
+    } else if (interval) {
+      clearInterval(interval);
+    }
+    
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [timerActive, feedback]);
+
   const checkAnswer = () => {
     if (!currentTask || userInput.trim() === '') return;
 
+    setTimerActive(false);
     const userAnswerNum = parseInt(userInput.trim(), currentTask.type === 'numeral-system' ? 16 : 10);
     const isCorrect = userAnswerNum === currentTask.answer;
 
     setFeedback(isCorrect ? 'correct' : 'wrong');
     
-    setStats(prev => ({
-      total: prev.total + 1,
-      correct: prev.correct + (isCorrect ? 1 : 0),
-      wrong: prev.wrong + (isCorrect ? 0 : 1),
-      streak: isCorrect ? prev.streak + 1 : 0
-    }));
+    setStats(prev => {
+      const newTotal = prev.total + 1;
+      const newTotalTime = prev.totalTime + timer;
+      return {
+        total: newTotal,
+        correct: prev.correct + (isCorrect ? 1 : 0),
+        wrong: prev.wrong + (isCorrect ? 0 : 1),
+        streak: isCorrect ? prev.streak + 1 : 0,
+        totalTime: newTotalTime,
+        avgTime: Math.round(newTotalTime / newTotal)
+      };
+    });
 
     setTimeout(() => {
       generateNewTask(taskType, difficulty);
@@ -242,7 +271,7 @@ const Index = () => {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
                     <div className="text-center p-6 bg-blue-50 rounded-lg">
                       <Icon name="Target" size={32} className="mx-auto mb-2 text-primary" />
                       <div className="text-3xl font-bold text-gray-900">{stats.total}</div>
@@ -264,6 +293,21 @@ const Index = () => {
                       <div className="text-sm text-gray-600">Серия побед</div>
                     </div>
                   </div>
+                  
+                  {stats.total > 0 && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                      <div className="text-center p-6 bg-purple-50 rounded-lg">
+                        <Icon name="Clock" size={32} className="mx-auto mb-2 text-purple-600" />
+                        <div className="text-3xl font-bold text-gray-900">{(stats.avgTime / 1000).toFixed(1)}с</div>
+                        <div className="text-sm text-gray-600">Среднее время</div>
+                      </div>
+                      <div className="text-center p-6 bg-indigo-50 rounded-lg">
+                        <Icon name="Timer" size={32} className="mx-auto mb-2 text-indigo-600" />
+                        <div className="text-3xl font-bold text-gray-900">{(stats.totalTime / 1000).toFixed(1)}с</div>
+                        <div className="text-sm text-gray-600">Общее время</div>
+                      </div>
+                    </div>
+                  )}
                   
                   {stats.total > 0 && (
                     <div className="mt-8 space-y-3">
@@ -325,6 +369,19 @@ const Index = () => {
             feedback === 'wrong' ? 'border-red-500 bg-red-50' : ''
           }`}>
             <CardHeader>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2 text-primary">
+                  <Icon name="Clock" size={20} />
+                  <span className="text-lg font-mono font-semibold">
+                    {(timer / 1000).toFixed(2)}с
+                  </span>
+                </div>
+                {stats.avgTime > 0 && (
+                  <div className="text-sm text-gray-500">
+                    Средн: {(stats.avgTime / 1000).toFixed(1)}с
+                  </div>
+                )}
+              </div>
               <CardTitle className="text-2xl text-center">{currentTask.question}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
