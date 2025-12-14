@@ -66,24 +66,48 @@ const Index = () => {
   };
 
   const generateDataUnitsTask = (level: DifficultyLevel): Task => {
-    const units = ['биты', 'байты', 'КБ', 'МБ', 'ГБ'];
-    const multipliers = [1, 8, 8192, 8388608, 8589934592];
-    
-    const fromIndex = level === 'easy' ? Math.floor(Math.random() * 2) : 
-                    level === 'medium' ? Math.floor(Math.random() * 3) :
-                    Math.floor(Math.random() * 4);
-    const toIndex = fromIndex + 1 + Math.floor(Math.random() * (units.length - fromIndex - 1));
+    const conversions = [
+      { from: 'бит', fromPlural: 'бита', to: 'байт', toPlural: 'байта', multiplier: 8 },
+      { from: 'байт', fromPlural: 'байта', to: 'КБ', toPlural: 'КБ', multiplier: 1024 },
+      { from: 'КБ', fromPlural: 'КБ', to: 'МБ', toPlural: 'МБ', multiplier: 1024 },
+      { from: 'МБ', fromPlural: 'МБ', to: 'ГБ', toPlural: 'ГБ', multiplier: 1024 }
+    ];
 
-    const baseValue = level === 'easy' ? Math.floor(Math.random() * 8) + 1 :
-                      level === 'medium' ? Math.floor(Math.random() * 64) + 1 :
-                      Math.floor(Math.random() * 512) + 1;
+    let availableConversions = conversions;
+    if (level === 'easy') {
+      availableConversions = conversions.slice(0, 2);
+    } else if (level === 'medium') {
+      availableConversions = conversions.slice(0, 3);
+    }
 
-    const bitsValue = baseValue * multipliers[fromIndex];
-    const answer = Math.floor(bitsValue / multipliers[toIndex]);
+    const conversion = availableConversions[Math.floor(Math.random() * availableConversions.length)];
+    const direction = Math.random() > 0.5;
+
+    let baseValue: number;
+    let answer: number;
+    let question: string;
+
+    if (direction) {
+      if (level === 'easy') {
+        baseValue = (Math.floor(Math.random() * 16) + 1) * conversion.multiplier;
+      } else if (level === 'medium') {
+        baseValue = (Math.floor(Math.random() * 8) + 1) * conversion.multiplier;
+      } else {
+        baseValue = (Math.floor(Math.random() * 10) + 1) * conversion.multiplier;
+      }
+      answer = baseValue / conversion.multiplier;
+      question = `Сколько ${conversion.to} в ${baseValue} ${conversion.fromPlural}?`;
+    } else {
+      baseValue = level === 'easy' ? Math.floor(Math.random() * 16) + 1 :
+                  level === 'medium' ? Math.floor(Math.random() * 64) + 1 :
+                  Math.floor(Math.random() * 256) + 1;
+      answer = baseValue * conversion.multiplier;
+      question = `Сколько ${conversion.fromPlural} в ${baseValue} ${conversion.to}?`;
+    }
 
     return {
-      question: `Сколько ${units[toIndex]} в ${baseValue} ${units[fromIndex]}?`,
-      answer: answer,
+      question: question,
+      answer: Math.round(answer),
       userAnswer: '',
       type: 'data-units'
     };
