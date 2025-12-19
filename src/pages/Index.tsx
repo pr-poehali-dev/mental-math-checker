@@ -340,6 +340,36 @@ const Index = () => {
                         <span className="font-semibold">{Math.round((stats.correct / stats.total) * 100)}%</span>
                       </div>
                       <Progress value={(stats.correct / stats.total) * 100} className="h-3" />
+                      <div className="text-center mt-4">
+                        {(() => {
+                          const accuracy = Math.round((stats.correct / stats.total) * 100);
+                          let grade = 2;
+                          let gradeColor = 'text-red-600';
+                          let gradeLabel = 'Неудовлетворительно';
+                          
+                          if (accuracy >= 90) {
+                            grade = 5;
+                            gradeColor = 'text-green-600';
+                            gradeLabel = 'Отлично';
+                          } else if (accuracy >= 75) {
+                            grade = 4;
+                            gradeColor = 'text-blue-600';
+                            gradeLabel = 'Хорошо';
+                          } else if (accuracy >= 50) {
+                            grade = 3;
+                            gradeColor = 'text-yellow-600';
+                            gradeLabel = 'Удовлетворительно';
+                          }
+                          
+                          return (
+                            <div className="inline-flex items-center gap-3 bg-white rounded-full px-6 py-3 shadow-md">
+                              <span className="text-gray-600 text-sm">Оценка:</span>
+                              <span className={`text-4xl font-bold ${gradeColor}`}>{grade}</span>
+                              <span className={`text-sm font-medium ${gradeColor}`}>({gradeLabel})</span>
+                            </div>
+                          );
+                        })()}
+                      </div>
                     </div>
                   )}
                 </CardContent>
