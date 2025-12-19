@@ -25,6 +25,19 @@ interface Stats {
   avgTime: number;
 }
 
+interface TrainingHistory {
+  id: string;
+  date: string;
+  taskType: TaskType;
+  difficulty: DifficultyLevel;
+  total: number;
+  correct: number;
+  accuracy: number;
+  grade: number;
+  totalTime: number;
+  avgTime: number;
+}
+
 const Index = () => {
   const [currentView, setCurrentView] = useState<'menu' | 'training'>('menu');
   const [taskType, setTaskType] = useState<TaskType>('numeral-system');
@@ -35,6 +48,41 @@ const Index = () => {
   const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
   const [timer, setTimer] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
+  const [history, setHistory] = useState<TrainingHistory[]>([]);
+
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('trainingHistory');
+    if (savedHistory) {
+      setHistory(JSON.parse(savedHistory));
+    }
+  }, []);
+
+  const saveToHistory = () => {
+    if (stats.total === 0) return;
+
+    const accuracy = Math.round((stats.correct / stats.total) * 100);
+    let grade = 2;
+    if (accuracy >= 90) grade = 5;
+    else if (accuracy >= 75) grade = 4;
+    else if (accuracy >= 50) grade = 3;
+
+    const newRecord: TrainingHistory = {
+      id: Date.now().toString(),
+      date: new Date().toLocaleString('ru-RU'),
+      taskType,
+      difficulty,
+      total: stats.total,
+      correct: stats.correct,
+      accuracy,
+      grade,
+      totalTime: stats.totalTime,
+      avgTime: stats.avgTime
+    };
+
+    const updatedHistory = [newRecord, ...history].slice(0, 20);
+    setHistory(updatedHistory);
+    localStorage.setItem('trainingHistory', JSON.stringify(updatedHistory));
+  };
 
   const generateNumeralSystemTask = (level: DifficultyLevel): Task => {
     const systems = [2, 8, 10, 16];
@@ -193,10 +241,11 @@ const Index = () => {
           </div>
 
           <Tabs defaultValue="numeral" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsList className="grid w-full grid-cols-4 mb-8">
               <TabsTrigger value="numeral">Системы счисления</TabsTrigger>
               <TabsTrigger value="data">Единицы данных</TabsTrigger>
               <TabsTrigger value="stats">Статистика</TabsTrigger>
+              <TabsTrigger value="history">История</TabsTrigger>
             </TabsList>
 
             <TabsContent value="numeral" className="animate-scale-in">
@@ -375,6 +424,82 @@ const Index = () => {
                 </CardContent>
               </Card>
             </TabsContent>
+
+            <TabsContent value="history" className="animate-scale-in">
+              <Card className="border-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Icon name="History" size={32} className="text-primary" />
+                      <div>
+                        <CardTitle>История тренировок</CardTitle>
+                        <CardDescription>Последние 20 тренировок с оценками</CardDescription>
+                      </div>
+                    </div>
+                    {history.length > 0 && (
+                      <Button 
+                        variant="destructive" 
+                        size="sm"
+                        onClick={() => {
+                          setHistory([]);
+                          localStorage.removeItem('trainingHistory');
+                        }}
+                      >
+                        <Icon name="Trash2" size={16} className="mr-2" />
+                        Очистить
+                      </Button>
+                    )}
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {history.length === 0 ? (
+                    <div className="text-center py-12 text-gray-500">
+                      <Icon name="FileQuestion" size={48} className="mx-auto mb-4 opacity-50" />
+                      <p>История тренировок пуста</p>
+                      <p className="text-sm">Пройдите тренировку, чтобы увидеть результаты здесь</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-3 max-h-[600px] overflow-y-auto">
+                      {history.map((record) => {
+                        const gradeColor = record.grade === 5 ? 'bg-green-100 text-green-800' :
+                                          record.grade === 4 ? 'bg-blue-100 text-blue-800' :
+                                          record.grade === 3 ? 'bg-yellow-100 text-yellow-800' :
+                                          'bg-red-100 text-red-800';
+                        
+                        const difficultyEmoji = record.difficulty === 'easy' ? '🟢' : 
+                                               record.difficulty === 'medium' ? '🟡' : '🔴';
+                        
+                        const taskTypeLabel = record.taskType === 'numeral-system' ? 'Системы счисления' :
+                                             record.taskType === 'data-units' ? 'Единицы данных' : 'Смешанная';
+
+                        return (
+                          <Card key={record.id} className="p-4 hover:shadow-md transition-shadow">
+                            <div className="flex items-center justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className={`text-2xl font-bold px-3 py-1 rounded-lg ${gradeColor}`}>
+                                    {record.grade}
+                                  </span>
+                                  <div>
+                                    <div className="font-semibold text-gray-900">{taskTypeLabel}</div>
+                                    <div className="text-xs text-gray-500">{record.date}</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-4 text-sm text-gray-600">
+                                  <span>{difficultyEmoji} {record.difficulty === 'easy' ? 'Легкий' : record.difficulty === 'medium' ? 'Средний' : 'Сложный'}</span>
+                                  <span>📊 {record.correct}/{record.total} ({record.accuracy}%)</span>
+                                  <span>⏱️ {(record.avgTime / 1000).toFixed(1)}с</span>
+                                </div>
+                              </div>
+                            </div>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
           </Tabs>
         </div>
       </div>
@@ -387,7 +512,10 @@ const Index = () => {
         <div className="flex items-center justify-between mb-8">
           <Button 
             variant="ghost" 
-            onClick={() => setCurrentView('menu')}
+            onClick={() => {
+              saveToHistory();
+              setCurrentView('menu');
+            }}
             className="flex items-center gap-2"
           >
             <Icon name="ArrowLeft" size={20} />
