@@ -21,11 +21,11 @@ const MenuView = ({ stats, history, onStartTraining, onClearHistory }: MenuViewP
         </div>
 
         <Tabs defaultValue="numeral" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
-            <TabsTrigger value="numeral">Системы счисления</TabsTrigger>
-            <TabsTrigger value="data">Единицы данных</TabsTrigger>
-            <TabsTrigger value="stats">Статистика</TabsTrigger>
-            <TabsTrigger value="history">История</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8 h-auto">
+            <TabsTrigger value="numeral" className="text-xs sm:text-sm py-3">Системы счисления</TabsTrigger>
+            <TabsTrigger value="data" className="text-xs sm:text-sm py-3">Единицы данных</TabsTrigger>
+            <TabsTrigger value="stats" className="text-xs sm:text-sm py-3">Статистика</TabsTrigger>
+            <TabsTrigger value="history" className="text-xs sm:text-sm py-3">История</TabsTrigger>
           </TabsList>
 
           <TabsContent value="numeral" className="animate-scale-in">
