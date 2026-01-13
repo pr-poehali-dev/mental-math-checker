@@ -47,7 +47,7 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-2 bg-transparent h-auto">
                 <TabsTrigger value="addition" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Plus" size={16} className="mr-1" />
-                  Сложение
+                  Сложение и вычитание
                 </TabsTrigger>
                 <TabsTrigger value="multiplication" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="X" size={16} className="mr-1" />
@@ -55,15 +55,15 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
                 </TabsTrigger>
                 <TabsTrigger value="square" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Square" size={16} className="mr-1" />
-                  Квадрат
+                  Возведение в квадрат
                 </TabsTrigger>
                 <TabsTrigger value="numeral" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Binary" size={16} className="mr-1" />
-                  Системы
+                  Системы счисления
                 </TabsTrigger>
                 <TabsTrigger value="data" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="HardDrive" size={16} className="mr-1" />
-                  Данные
+                  Единицы данных
                 </TabsTrigger>
               </TabsList>
             </div>
