@@ -116,8 +116,11 @@ const Index = () => {
     if (!currentTask || userInput.trim() === '') return;
 
     setTimerActive(false);
-    const userAnswerNum = parseInt(userInput.trim(), currentTask.type === 'numeral-system' ? 16 : 10);
-    const isCorrect = userAnswerNum === currentTask.answer;
+    const normalizedInput = userInput.trim().replace(',', '.');
+    const userAnswerNum = currentTask.type === 'numeral-system' 
+      ? parseInt(normalizedInput, 16)
+      : parseFloat(normalizedInput);
+    const isCorrect = Math.abs(userAnswerNum - currentTask.answer) < 0.01;
 
     setFeedback(isCorrect ? 'correct' : 'wrong');
     

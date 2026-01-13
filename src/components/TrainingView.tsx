@@ -60,12 +60,14 @@ const TrainingView = ({
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className={stats.streak >= 5 ? 'border-2 border-orange-400 bg-orange-50/50' : ''}>
             <CardContent className="pt-6">
               <div className="text-center">
-                <Icon name="Flame" size={24} className="mx-auto mb-2 text-orange-500" />
-                <p className="text-sm text-gray-600">Серия</p>
-                <p className="text-2xl font-bold">{stats.streak}</p>
+                <Icon name="Flame" size={24} className={`mx-auto mb-2 ${stats.streak >= 5 ? 'text-orange-600' : 'text-orange-500'}`} />
+                <p className="text-sm text-gray-600">Серия правильных</p>
+                <p className={`text-2xl font-bold ${stats.streak >= 5 ? 'text-orange-600' : ''}`}>
+                  {stats.streak} {stats.streak >= 10 ? '🔥' : stats.streak >= 5 ? '✨' : ''}
+                </p>
               </div>
             </CardContent>
           </Card>
