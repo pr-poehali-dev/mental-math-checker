@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { DifficultyLevel, TaskType, Task, Stats, TrainingHistory, UserProfile } from '@/types/training';
 import { generateNumeralSystemTask, generateDataUnitsTask, generateAdditionTask, generateMultiplicationTask, generateSquareTask } from '@/utils/taskGenerators';
+import { playCorrectSound, playWrongSound } from '@/utils/sounds';
 import MenuView from '@/components/MenuView';
 import TrainingView from '@/components/TrainingView';
 import AuthView from '@/components/AuthView';
@@ -123,6 +124,12 @@ const Index = () => {
     const isCorrect = Math.abs(userAnswerNum - currentTask.answer) < 0.01;
 
     setFeedback(isCorrect ? 'correct' : 'wrong');
+    
+    if (isCorrect) {
+      playCorrectSound();
+    } else {
+      playWrongSound();
+    }
     
     setStats(prev => {
       const newTotal = prev.total + 1;
