@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import type { DifficultyLevel, TaskType, Task, Stats, TrainingHistory } from '@/types/training';
+import type { DifficultyLevel, TaskType, Task, Stats, TrainingHistory, UserProfile } from '@/types/training';
 import { generateNumeralSystemTask, generateDataUnitsTask } from '@/utils/taskGenerators';
 import MenuView from '@/components/MenuView';
 import TrainingView from '@/components/TrainingView';
+import AuthView from '@/components/AuthView';
 
 const Index = () => {
-  const [currentView, setCurrentView] = useState<'menu' | 'training'>('menu');
+  const [currentView, setCurrentView] = useState<'auth' | 'menu' | 'training'>('auth');
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [taskType, setTaskType] = useState<TaskType>('numeral-system');
   const [difficulty, setDifficulty] = useState<DifficultyLevel>('easy');
   const [currentTask, setCurrentTask] = useState<Task | null>(null);
@@ -17,6 +19,11 @@ const Index = () => {
   const [history, setHistory] = useState<TrainingHistory[]>([]);
 
   useEffect(() => {
+    const savedProfile = localStorage.getItem('userProfile');
+    if (savedProfile) {
+      setUserProfile(JSON.parse(savedProfile));
+      setCurrentView('menu');
+    }
     const savedHistory = localStorage.getItem('trainingHistory');
     if (savedHistory) {
       setHistory(JSON.parse(savedHistory));
@@ -42,7 +49,8 @@ const Index = () => {
       accuracy,
       grade,
       totalTime: stats.totalTime,
-      avgTime: stats.avgTime
+      avgTime: stats.avgTime,
+      userName: userProfile ? `${userProfile.firstName} ${userProfile.lastName}` : undefined
     };
 
     const updatedHistory = [newRecord, ...history].slice(0, 20);
@@ -130,13 +138,31 @@ const Index = () => {
     setCurrentView('menu');
   };
 
+  const handleAuth = (profile: UserProfile) => {
+    setUserProfile(profile);
+    localStorage.setItem('userProfile', JSON.stringify(profile));
+    setCurrentView('menu');
+  };
+
+  const handleLogout = () => {
+    setUserProfile(null);
+    localStorage.removeItem('userProfile');
+    setCurrentView('auth');
+  };
+
+  if (currentView === 'auth') {
+    return <AuthView onAuth={handleAuth} />;
+  }
+
   if (currentView === 'menu') {
     return (
       <MenuView
         stats={stats}
         history={history}
+        userProfile={userProfile}
         onStartTraining={startTraining}
         onClearHistory={clearHistory}
+        onLogout={handleLogout}
       />
     );
   }

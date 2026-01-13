@@ -28,4 +28,10 @@ export interface TrainingHistory {
   grade: number;
   totalTime: number;
   avgTime: number;
+  userName?: string;
+}
+
+export interface UserProfile {
+  firstName: string;
+  lastName: string;
 }
