@@ -68,6 +68,14 @@ const AuthView = ({ onAuth }: AuthViewProps) => {
               <Icon name="LogIn" size={20} className="mr-2" />
               Начать тренировку
             </Button>
+            <Button 
+              type="button" 
+              variant="outline"
+              className="w-full text-base h-10"
+              onClick={() => onAuth({ firstName: 'Гость', lastName: '' })}
+            >
+              Продолжить без входа
+            </Button>
           </form>
         </CardContent>
       </Card>

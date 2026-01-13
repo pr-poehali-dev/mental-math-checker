@@ -36,7 +36,7 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
         </div>
 
         <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">Тренажёр устного счёта</h1>
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">Тренажёр счёта</h1>
           <p className="text-xl text-gray-600">Развивайте навыки работы с системами счисления и единицами данных</p>
         </div>
 
