@@ -37,13 +37,16 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
 
         <div className="text-center mb-12 animate-fade-in">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">Тренажёр счёта</h1>
-          <p className="text-xl text-gray-600">Развивайте навыки работы с системами счисления и единицами данных</p>
+          <p className="text-xl text-gray-600">Развивайте математические навыки и работу с системами счисления</p>
         </div>
 
         <Tabs defaultValue="numeral" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8 h-auto">
+          <TabsList className="grid w-full grid-cols-3 md:grid-cols-7 mb-8 h-auto">
             <TabsTrigger value="numeral" className="text-xs sm:text-sm py-3">Системы счисления</TabsTrigger>
             <TabsTrigger value="data" className="text-xs sm:text-sm py-3">Единицы данных</TabsTrigger>
+            <TabsTrigger value="addition" className="text-xs sm:text-sm py-3">Сложение</TabsTrigger>
+            <TabsTrigger value="multiplication" className="text-xs sm:text-sm py-3">Умножение</TabsTrigger>
+            <TabsTrigger value="square" className="text-xs sm:text-sm py-3">Квадрат</TabsTrigger>
             <TabsTrigger value="stats" className="text-xs sm:text-sm py-3">Статистика</TabsTrigger>
             <TabsTrigger value="history" className="text-xs sm:text-sm py-3">История</TabsTrigger>
           </TabsList>
@@ -123,6 +126,132 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
                     <Icon name="Flame" size={28} />
                     <span>Сложный</span>
                     <span className="text-sm opacity-90">+ МБ, ГБ</span>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="addition" className="animate-scale-in">
+            <Card className="border-2 hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Icon name="Plus" size={32} className="text-primary" />
+                  <div>
+                    <CardTitle>Сложение и вычитание</CardTitle>
+                    <CardDescription>Тренировка навыков сложения и вычитания</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button 
+                    onClick={() => onStartTraining('addition', 'easy')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-green-500 hover:bg-green-600"
+                  >
+                    <Icon name="SmilePlus" size={28} />
+                    <span>Лёгкий</span>
+                    <span className="text-sm opacity-90">числа до 100</span>
+                  </Button>
+                  <Button 
+                    onClick={() => onStartTraining('addition', 'medium')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-yellow-500 hover:bg-yellow-600"
+                  >
+                    <Icon name="Zap" size={28} />
+                    <span>Средний</span>
+                    <span className="text-sm opacity-90">десятичные дроби</span>
+                  </Button>
+                  <Button 
+                    onClick={() => onStartTraining('addition', 'hard')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-red-500 hover:bg-red-600"
+                  >
+                    <Icon name="Flame" size={28} />
+                    <span>Сложный</span>
+                    <span className="text-sm opacity-90">обыкновенные дроби</span>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="multiplication" className="animate-scale-in">
+            <Card className="border-2 hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Icon name="X" size={32} className="text-primary" />
+                  <div>
+                    <CardTitle>Умножение</CardTitle>
+                    <CardDescription>Тренировка навыков умножения чисел</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button 
+                    onClick={() => onStartTraining('multiplication', 'easy')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-green-500 hover:bg-green-600"
+                  >
+                    <Icon name="SmilePlus" size={28} />
+                    <span>Лёгкий</span>
+                    <span className="text-sm opacity-90">таблица умножения</span>
+                  </Button>
+                  <Button 
+                    onClick={() => onStartTraining('multiplication', 'medium')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-yellow-500 hover:bg-yellow-600"
+                  >
+                    <Icon name="Zap" size={28} />
+                    <span>Средний</span>
+                    <span className="text-sm opacity-90">числа до 25</span>
+                  </Button>
+                  <Button 
+                    onClick={() => onStartTraining('multiplication', 'hard')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-red-500 hover:bg-red-600"
+                  >
+                    <Icon name="Flame" size={28} />
+                    <span>Сложный</span>
+                    <span className="text-sm opacity-90">десятичные дроби</span>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="square" className="animate-scale-in">
+            <Card className="border-2 hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Icon name="Square" size={32} className="text-primary" />
+                  <div>
+                    <CardTitle>Возведение в квадрат</CardTitle>
+                    <CardDescription>Тренировка навыков возведения чисел в квадрат</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button 
+                    onClick={() => onStartTraining('square', 'easy')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-green-500 hover:bg-green-600"
+                  >
+                    <Icon name="SmilePlus" size={28} />
+                    <span>Лёгкий</span>
+                    <span className="text-sm opacity-90">числа до 10</span>
+                  </Button>
+                  <Button 
+                    onClick={() => onStartTraining('square', 'medium')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-yellow-500 hover:bg-yellow-600"
+                  >
+                    <Icon name="Zap" size={28} />
+                    <span>Средний</span>
+                    <span className="text-sm opacity-90">числа до 20</span>
+                  </Button>
+                  <Button 
+                    onClick={() => onStartTraining('square', 'hard')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-red-500 hover:bg-red-600"
+                  >
+                    <Icon name="Flame" size={28} />
+                    <span>Сложный</span>
+                    <span className="text-sm opacity-90">числа до 100</span>
                   </Button>
                 </div>
               </CardContent>
@@ -283,7 +412,10 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
                                              record.difficulty === 'medium' ? '🟡' : '🔴';
                       
                       const taskTypeLabel = record.taskType === 'numeral-system' ? 'Системы счисления' :
-                                           record.taskType === 'data-units' ? 'Единицы данных' : 'Смешанная';
+                                           record.taskType === 'data-units' ? 'Единицы данных' :
+                                           record.taskType === 'addition' ? 'Сложение' :
+                                           record.taskType === 'multiplication' ? 'Умножение' :
+                                           record.taskType === 'square' ? 'Квадрат' : 'Смешанная';
 
                       return (
                         <Card key={record.id} className="p-4 hover:shadow-md transition-shadow">

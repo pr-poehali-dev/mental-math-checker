@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { DifficultyLevel, TaskType, Task, Stats, TrainingHistory, UserProfile } from '@/types/training';
-import { generateNumeralSystemTask, generateDataUnitsTask } from '@/utils/taskGenerators';
+import { generateNumeralSystemTask, generateDataUnitsTask, generateAdditionTask, generateMultiplicationTask, generateSquareTask } from '@/utils/taskGenerators';
 import MenuView from '@/components/MenuView';
 import TrainingView from '@/components/TrainingView';
 import AuthView from '@/components/AuthView';
@@ -72,9 +72,26 @@ const Index = () => {
     setTimer(0);
     setTimerActive(true);
     
-    const task = type === 'numeral-system' 
-      ? generateNumeralSystemTask(level)
-      : generateDataUnitsTask(level);
+    let task: Task;
+    switch (type) {
+      case 'numeral-system':
+        task = generateNumeralSystemTask(level);
+        break;
+      case 'data-units':
+        task = generateDataUnitsTask(level);
+        break;
+      case 'addition':
+        task = generateAdditionTask(level);
+        break;
+      case 'multiplication':
+        task = generateMultiplicationTask(level);
+        break;
+      case 'square':
+        task = generateSquareTask(level);
+        break;
+      default:
+        task = generateNumeralSystemTask(level);
+    }
     
     setCurrentTask(task);
   };
