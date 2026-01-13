@@ -40,19 +40,11 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
           <p className="text-xl text-gray-600">Развивайте математические навыки и работу с системами счисления</p>
         </div>
 
-        <Tabs defaultValue="numeral" className="w-full">
+        <Tabs defaultValue="addition" className="w-full">
           <div className="mb-8 space-y-4">
             <div className="bg-white rounded-lg p-2 border-2 shadow-sm">
               <p className="text-sm font-medium text-gray-600 mb-2 px-2">Тренировки:</p>
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-2 bg-transparent h-auto">
-                <TabsTrigger value="numeral" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
-                  <Icon name="Binary" size={16} className="mr-1" />
-                  Системы
-                </TabsTrigger>
-                <TabsTrigger value="data" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
-                  <Icon name="HardDrive" size={16} className="mr-1" />
-                  Данные
-                </TabsTrigger>
                 <TabsTrigger value="addition" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Plus" size={16} className="mr-1" />
                   Сложение
@@ -64,6 +56,14 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
                 <TabsTrigger value="square" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Square" size={16} className="mr-1" />
                   Квадрат
+                </TabsTrigger>
+                <TabsTrigger value="numeral" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="Binary" size={16} className="mr-1" />
+                  Системы
+                </TabsTrigger>
+                <TabsTrigger value="data" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="HardDrive" size={16} className="mr-1" />
+                  Данные
                 </TabsTrigger>
               </TabsList>
             </div>
