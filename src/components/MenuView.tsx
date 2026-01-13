@@ -45,10 +45,7 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
             <div className="bg-white rounded-lg p-2 border-2 shadow-sm">
               <p className="text-sm font-medium text-gray-600 mb-2 px-2">Тренировки:</p>
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-2 bg-transparent h-auto">
-                <TabsTrigger value="addition" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
-                  <Icon name="Plus" size={16} className="mr-1" />
-                  Сложение
-                </TabsTrigger>
+                <TabsTrigger value="addition" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">Сложение и вычитание</TabsTrigger>
                 <TabsTrigger value="multiplication" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="X" size={16} className="mr-1" />
                   Умножение
