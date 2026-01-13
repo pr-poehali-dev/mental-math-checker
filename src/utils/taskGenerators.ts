@@ -119,8 +119,17 @@ export const generateAdditionTask = (level: DifficultyLevel): Task => {
   const isAddition = Math.random() > 0.5;
   let question: string;
   let answer: number;
+  let actualLevel = level;
 
-  if (level === 'easy') {
+  if (level === 'medium' && Math.random() < 0.3) {
+    actualLevel = 'easy';
+  } else if (level === 'hard') {
+    const rand = Math.random();
+    if (rand < 0.25) actualLevel = 'easy';
+    else if (rand < 0.5) actualLevel = 'medium';
+  }
+
+  if (actualLevel === 'easy') {
     const num1 = Math.floor(Math.random() * 100) + 1;
     const num2 = Math.floor(Math.random() * 100) + 1;
     if (isAddition) {
@@ -132,7 +141,7 @@ export const generateAdditionTask = (level: DifficultyLevel): Task => {
       answer = larger - smaller;
       question = `${larger} − ${smaller} = ?`;
     }
-  } else if (level === 'medium') {
+  } else if (actualLevel === 'medium') {
     const num1 = (Math.floor(Math.random() * 100) + 1) / 10;
     const num2 = (Math.floor(Math.random() * 100) + 1) / 10;
     if (isAddition) {
@@ -145,30 +154,16 @@ export const generateAdditionTask = (level: DifficultyLevel): Task => {
       question = `${larger.toFixed(1)} − ${smaller.toFixed(1)} = ?`;
     }
   } else {
-    const denominators = [2, 3, 4, 5, 6, 8];
-    const denom1 = denominators[Math.floor(Math.random() * denominators.length)];
-    const denom2 = denominators[Math.floor(Math.random() * denominators.length)];
-    const num1 = Math.floor(Math.random() * (denom1 * 2)) + 1;
-    const num2 = Math.floor(Math.random() * (denom2 * 2)) + 1;
-    
-    const commonDenom = (denom1 * denom2) / gcd(denom1, denom2);
-    const newNum1 = num1 * (commonDenom / denom1);
-    const newNum2 = num2 * (commonDenom / denom2);
-    
+    const num1 = (Math.floor(Math.random() * 1000) + 1) / 10;
+    const num2 = (Math.floor(Math.random() * 1000) + 1) / 10;
     if (isAddition) {
-      const resultNum = newNum1 + newNum2;
-      const simplifiedGcd = gcd(resultNum, commonDenom);
-      answer = resultNum / simplifiedGcd;
-      const answerDenom = commonDenom / simplifiedGcd;
-      question = `${toMixedNumber(num1, denom1)} + ${toMixedNumber(num2, denom2)} = ? (ответ: числитель дроби ${answer}/${answerDenom})`;
+      answer = Math.round((num1 + num2) * 10) / 10;
+      question = `${num1.toFixed(1)} + ${num2.toFixed(1)} = ?`;
     } else {
-      const larger = newNum1 > newNum2 ? { num: num1, denom: denom1, common: newNum1 } : { num: num2, denom: denom2, common: newNum2 };
-      const smaller = newNum1 > newNum2 ? { num: num2, denom: denom2, common: newNum2 } : { num: num1, denom: denom1, common: newNum1 };
-      const resultNum = larger.common - smaller.common;
-      const simplifiedGcd = gcd(resultNum, commonDenom);
-      answer = resultNum / simplifiedGcd;
-      const answerDenom = commonDenom / simplifiedGcd;
-      question = `${toMixedNumber(larger.num, larger.denom)} − ${toMixedNumber(smaller.num, smaller.denom)} = ? (ответ: числитель дроби ${answer}/${answerDenom})`;
+      const larger = Math.max(num1, num2);
+      const smaller = Math.min(num1, num2);
+      answer = Math.round((larger - smaller) * 10) / 10;
+      question = `${larger.toFixed(1)} − ${smaller.toFixed(1)} = ?`;
     }
   }
 
@@ -182,13 +177,22 @@ export const generateAdditionTask = (level: DifficultyLevel): Task => {
 
 export const generateMultiplicationTask = (level: DifficultyLevel): Task => {
   let num1: number, num2: number, answer: number, question: string;
+  let actualLevel = level;
 
-  if (level === 'easy') {
+  if (level === 'medium' && Math.random() < 0.3) {
+    actualLevel = 'easy';
+  } else if (level === 'hard') {
+    const rand = Math.random();
+    if (rand < 0.25) actualLevel = 'easy';
+    else if (rand < 0.5) actualLevel = 'medium';
+  }
+
+  if (actualLevel === 'easy') {
     num1 = Math.floor(Math.random() * 9) + 2;
     num2 = Math.floor(Math.random() * 9) + 2;
     answer = num1 * num2;
     question = `${num1} × ${num2} = ?`;
-  } else if (level === 'medium') {
+  } else if (actualLevel === 'medium') {
     num1 = Math.floor(Math.random() * 25) + 1;
     num2 = Math.floor(Math.random() * 25) + 1;
     answer = num1 * num2;
@@ -210,10 +214,19 @@ export const generateMultiplicationTask = (level: DifficultyLevel): Task => {
 
 export const generateSquareTask = (level: DifficultyLevel): Task => {
   let num: number, answer: number, question: string;
+  let actualLevel = level;
 
-  if (level === 'easy') {
+  if (level === 'medium' && Math.random() < 0.3) {
+    actualLevel = 'easy';
+  } else if (level === 'hard') {
+    const rand = Math.random();
+    if (rand < 0.25) actualLevel = 'easy';
+    else if (rand < 0.5) actualLevel = 'medium';
+  }
+
+  if (actualLevel === 'easy') {
     num = Math.floor(Math.random() * 10) + 1;
-  } else if (level === 'medium') {
+  } else if (actualLevel === 'medium') {
     num = Math.floor(Math.random() * 20) + 1;
   } else {
     num = Math.floor(Math.random() * 100) + 1;

@@ -167,7 +167,7 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
                   >
                     <Icon name="Flame" size={28} />
                     <span>Сложный</span>
-                    <span className="text-sm opacity-90">обыкновенные дроби</span>
+                    <span className="text-sm opacity-90">десятичные до 100</span>
                   </Button>
                 </div>
               </CardContent>
