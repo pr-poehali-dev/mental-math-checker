@@ -41,15 +41,46 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
         </div>
 
         <Tabs defaultValue="numeral" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 md:grid-cols-7 mb-8 h-auto">
-            <TabsTrigger value="numeral" className="text-xs sm:text-sm py-3">Системы счисления</TabsTrigger>
-            <TabsTrigger value="data" className="text-xs sm:text-sm py-3">Единицы данных</TabsTrigger>
-            <TabsTrigger value="addition" className="text-xs sm:text-sm py-3">Сложение</TabsTrigger>
-            <TabsTrigger value="multiplication" className="text-xs sm:text-sm py-3">Умножение</TabsTrigger>
-            <TabsTrigger value="square" className="text-xs sm:text-sm py-3">Квадрат</TabsTrigger>
-            <TabsTrigger value="stats" className="text-xs sm:text-sm py-3">Статистика</TabsTrigger>
-            <TabsTrigger value="history" className="text-xs sm:text-sm py-3">История</TabsTrigger>
-          </TabsList>
+          <div className="mb-8 space-y-4">
+            <div className="bg-white rounded-lg p-2 border-2 shadow-sm">
+              <p className="text-sm font-medium text-gray-600 mb-2 px-2">Тренировки:</p>
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-2 bg-transparent h-auto">
+                <TabsTrigger value="numeral" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="Binary" size={16} className="mr-1" />
+                  Системы
+                </TabsTrigger>
+                <TabsTrigger value="data" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="HardDrive" size={16} className="mr-1" />
+                  Данные
+                </TabsTrigger>
+                <TabsTrigger value="addition" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="Plus" size={16} className="mr-1" />
+                  Сложение
+                </TabsTrigger>
+                <TabsTrigger value="multiplication" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="X" size={16} className="mr-1" />
+                  Умножение
+                </TabsTrigger>
+                <TabsTrigger value="square" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="Square" size={16} className="mr-1" />
+                  Квадрат
+                </TabsTrigger>
+              </TabsList>
+            </div>
+            
+            <div className="bg-white rounded-lg p-2 border-2 shadow-sm">
+              <TabsList className="grid w-full grid-cols-2 gap-2 bg-transparent h-auto">
+                <TabsTrigger value="stats" className="text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="BarChart3" size={16} className="mr-2" />
+                  Статистика
+                </TabsTrigger>
+                <TabsTrigger value="history" className="text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="History" size={16} className="mr-2" />
+                  История
+                </TabsTrigger>
+              </TabsList>
+            </div>
+          </div>
 
           <TabsContent value="numeral" className="animate-scale-in">
             <Card className="border-2 hover:shadow-xl transition-shadow">
