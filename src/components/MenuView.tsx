@@ -486,7 +486,7 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
         </Tabs>
       </div>
       
-      <div className="fixed bottom-2 right-2 text-[10px] text-gray-300 opacity-40 select-none">
+      <div className="fixed bottom-2 right-2 text-sm text-gray-500 opacity-70 select-none">
         Владислав, Тимофей, Лев ©
       </div>
     </div>
