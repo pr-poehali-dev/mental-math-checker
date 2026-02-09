@@ -213,7 +213,6 @@ export const generateMultiplicationTask = (level: DifficultyLevel): Task => {
 };
 
 export const generateSquareTask = (level: DifficultyLevel): Task => {
-  let num: number, answer: number, question: string;
   let actualLevel = level;
 
   if (level === 'medium' && Math.random() < 0.3) {
@@ -224,6 +223,7 @@ export const generateSquareTask = (level: DifficultyLevel): Task => {
     else if (rand < 0.5) actualLevel = 'medium';
   }
 
+  let num: number;
   if (actualLevel === 'easy') {
     num = Math.floor(Math.random() * 10) + 1;
   } else if (actualLevel === 'medium') {
@@ -232,8 +232,8 @@ export const generateSquareTask = (level: DifficultyLevel): Task => {
     num = Math.floor(Math.random() * 100) + 1;
   }
 
-  answer = num * num;
-  question = `${num}² = ?`;
+  const answer = num * num;
+  const question = `${num}² = ?`;
 
   return {
     question,
@@ -248,7 +248,7 @@ export const generatePythonTask = (level: DifficultyLevel): Task => {
   let answer: string | number;
 
   if (level === 'easy') {
-    const taskType = Math.floor(Math.random() * 10);
+    const taskType = Math.floor(Math.random() * 20);
     
     if (taskType === 0) {
       const a = Math.floor(Math.random() * 50) + 10;
@@ -293,14 +293,61 @@ export const generatePythonTask = (level: DifficultyLevel): Task => {
       const text = texts[Math.floor(Math.random() * texts.length)];
       answer = text[0].toUpperCase() + text.slice(1);
       code = `s = "${text}"\nprint(s.capitalize())`;
-    } else {
+    } else if (taskType === 9) {
       const num = Math.floor(Math.random() * 40) + 10;
       const div = Math.floor(Math.random() * 3) + 3;
       answer = num * div;
       code = `x = ${num}\nprint(x * ${div})`;
+    } else if (taskType === 10) {
+      const nums = [Math.floor(Math.random() * 10) + 1, Math.floor(Math.random() * 10) + 1, Math.floor(Math.random() * 10) + 1];
+      answer = nums[0] + nums[1] + nums[2];
+      code = `a = ${nums[0]}\nb = ${nums[1]}\nc = ${nums[2]}\nprint(a + b + c)`;
+    } else if (taskType === 11) {
+      const texts = ['test', 'code', 'loop', 'data', 'file'];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      answer = text.repeat(2);
+      code = `s = "${text}"\nprint(s * 2)`;
+    } else if (taskType === 12) {
+      const num = Math.floor(Math.random() * 15) + 5;
+      answer = num % 3;
+      code = `x = ${num}\nprint(x % 3)`;
+    } else if (taskType === 13) {
+      const words = ['cat', 'dog', 'car', 'bus', 'box', 'key'];
+      const word = words[Math.floor(Math.random() * words.length)];
+      answer = word.split('').reverse().join('');
+      code = `s = "${word}"\nprint(s[::-1])`;
+    } else if (taskType === 14) {
+      const a = Math.floor(Math.random() * 10) + 2;
+      const b = Math.floor(Math.random() * 5) + 2;
+      answer = a ** b;
+      code = `x = ${a}\ny = ${b}\nprint(x ** y)`;
+    } else if (taskType === 15) {
+      const num = Math.floor(Math.random() * 100) + 20;
+      answer = String(num)[0];
+      code = `x = ${num}\nprint(str(x)[0])`;
+    } else if (taskType === 16) {
+      const texts = ['apple', 'orange', 'banana', 'cherry'];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      answer = text.replace('a', 'A');
+      code = `s = "${text}"\nprint(s.replace('a', 'A'))`;
+    } else if (taskType === 17) {
+      const a = Math.floor(Math.random() * 20) + 10;
+      const b = Math.floor(Math.random() * 3) + 2;
+      answer = Math.floor(a / b);
+      code = `x = ${a}\ny = ${b}\nprint(x // y)`;
+    } else if (taskType === 18) {
+      const nums = [Math.floor(Math.random() * 20) + 1, Math.floor(Math.random() * 20) + 1];
+      answer = Math.max(...nums);
+      code = `a = ${nums[0]}\nb = ${nums[1]}\nprint(max(a, b))`;
+    } else {
+      const texts = ['Hello', 'World', 'Python', 'Code'];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      const idx = Math.floor(Math.random() * text.length);
+      answer = text[idx];
+      code = `s = "${text}"\nprint(s[${idx}])`;
     }
   } else if (level === 'medium') {
-    const taskType = Math.floor(Math.random() * 12);
+    const taskType = Math.floor(Math.random() * 25);
     
     if (taskType === 0) {
       const a = Math.floor(Math.random() * 15) + 5;
@@ -358,14 +405,76 @@ export const generatePythonTask = (level: DifficultyLevel): Task => {
       const nums = Array.from({length: 5}, () => Math.floor(Math.random() * 10) + 1);
       answer = nums.reduce((a, b) => a + b, 0);
       code = `nums = [${nums.join(', ')}]\nprint(sum(nums))`;
-    } else {
+    } else if (taskType === 11) {
       const texts = ['developer', 'engineer', 'architect', 'analyst'];
       const text = texts[Math.floor(Math.random() * texts.length)];
       answer = text.length;
       code = `s = "${text}"\nresult = len(s)\nprint(result)`;
+    } else if (taskType === 12) {
+      const a = Math.floor(Math.random() * 12) + 3;
+      const b = Math.floor(Math.random() * 5) + 2;
+      answer = a % b;
+      code = `x = ${a}\ny = ${b}\nresult = x % y\nprint(result)`;
+    } else if (taskType === 13) {
+      const words = ['Hello World', 'Python Code', 'Quick Sort', 'Deep Learning'];
+      const word = words[Math.floor(Math.random() * words.length)];
+      answer = word.split(' ').length;
+      code = `text = "${word}"\nwords = text.split()\nprint(len(words))`;
+    } else if (taskType === 14) {
+      const texts = ['testing', 'coding', 'learning', 'teaching'];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      answer = text.replace('ing', 'ed');
+      code = `s = "${text}"\nprint(s.replace('ing', 'ed'))`;
+    } else if (taskType === 15) {
+      const nums = Array.from({length: 3}, () => Math.floor(Math.random() * 20) + 1);
+      answer = nums[0] * nums[1] + nums[2];
+      code = `a, b, c = ${nums[0]}, ${nums[1]}, ${nums[2]}\nprint(a * b + c)`;
+    } else if (taskType === 16) {
+      const texts = ['algorithm', 'function', 'variable', 'constant'];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      const n = Math.floor(Math.random() * text.length - 2) + 1;
+      answer = text.slice(0, n);
+      code = `s = "${text}"\nprint(s[:${n}])`;
+    } else if (taskType === 17) {
+      const a = Math.floor(Math.random() * 25) + 10;
+      answer = (a % 2 === 0) ? 'even' : 'odd';
+      code = `x = ${a}\nprint('even' if x % 2 == 0 else 'odd')`;
+    } else if (taskType === 18) {
+      const nums = Array.from({length: 4}, () => Math.floor(Math.random() * 10) + 1);
+      answer = nums.filter(n => n > 5).length;
+      code = `nums = [${nums.join(', ')}]\nprint(len([x for x in nums if x > 5]))`;
+    } else if (taskType === 19) {
+      const text = 'abcdefgh';
+      const step = Math.floor(Math.random() * 2) + 2;
+      answer = text.split('').filter((_, i) => i % step === 0).join('');
+      code = `s = "${text}"\nprint(s[::${step}])`;
+    } else if (taskType === 20) {
+      const a = Math.floor(Math.random() * 15) + 10;
+      const b = Math.floor(Math.random() * 5) + 2;
+      answer = a * b + a;
+      code = `x = ${a}\ny = ${b}\nprint(x * y + x)`;
+    } else if (taskType === 21) {
+      const texts = ['python', 'golang', 'kotlin', 'elixir'];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      answer = text.split('').filter((c, i) => i % 2 === 0).join('');
+      code = `s = "${text}"\nprint(s[::2])`;
+    } else if (taskType === 22) {
+      const nums = Array.from({length: 5}, () => Math.floor(Math.random() * 10) + 1);
+      answer = nums.map(n => n * 2).reduce((a, b) => a + b, 0);
+      code = `nums = [${nums.join(', ')}]\nprint(sum([x * 2 for x in nums]))`;
+    } else if (taskType === 23) {
+      const a = Math.floor(Math.random() * 40) + 20;
+      answer = String(a).length;
+      code = `x = ${a}\nprint(len(str(x)))`;
+    } else {
+      const texts = ['function', 'variable', 'constant', 'operator'];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      const char = text[Math.floor(Math.random() * text.length)];
+      answer = text.split('').filter(c => c === char).length;
+      code = `s = "${text}"\nprint(s.count('${char}'))`;
     }
   } else {
-    const taskType = Math.floor(Math.random() * 10);
+    const taskType = Math.floor(Math.random() * 20);
     
     if (taskType === 0) {
       const nums = Array.from({length: 6}, () => Math.floor(Math.random() * 15) + 1);
@@ -408,10 +517,59 @@ export const generatePythonTask = (level: DifficultyLevel): Task => {
       const vowels = text.split('').filter(c => 'aeiou'.includes(c)).length;
       answer = vowels;
       code = `s = "${text}"\nvowels = len([c for c in s if c in 'aeiou'])\nprint(vowels)`;
-    } else {
+    } else if (taskType === 9) {
       const nums = Array.from({length: 4}, () => Math.floor(Math.random() * 10) + 5);
       answer = nums.map(n => n * n).reduce((a, b) => a + b, 0);
       code = `nums = [${nums.join(', ')}]\nresult = sum([x ** 2 for x in nums])\nprint(result)`;
+    } else if (taskType === 10) {
+      const texts = ['developer', 'architect', 'manager', 'designer'];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      const consonants = text.split('').filter(c => !'aeiou'.includes(c)).length;
+      answer = consonants;
+      code = `s = "${text}"\nconsonants = len([c for c in s if c not in 'aeiou'])\nprint(consonants)`;
+    } else if (taskType === 11) {
+      const nums = Array.from({length: 5}, () => Math.floor(Math.random() * 15) + 1);
+      answer = nums.filter(n => n % 2 !== 0).reduce((a, b) => a + b, 0);
+      code = `nums = [${nums.join(', ')}]\nresult = sum([x for x in nums if x % 2 != 0])\nprint(result)`;
+    } else if (taskType === 12) {
+      const text = 'programming';
+      const n = Math.floor(Math.random() * 4) + 3;
+      answer = text.slice(-n);
+      code = `s = "${text}"\nprint(s[-${n}:])`;
+    } else if (taskType === 13) {
+      const nums = Array.from({length: 6}, () => Math.floor(Math.random() * 20) + 1);
+      const threshold = Math.floor(Math.random() * 5) + 8;
+      answer = nums.filter(n => n < threshold).length;
+      code = `nums = [${nums.join(', ')}]\nresult = len([x for x in nums if x < ${threshold}])\nprint(result)`;
+    } else if (taskType === 14) {
+      const a = Math.floor(Math.random() * 100) + 50;
+      answer = String(a).split('').reduce((acc, d) => acc + Number(d), 0);
+      code = `x = ${a}\nprint(sum([int(d) for d in str(x)]))`;
+    } else if (taskType === 15) {
+      const nums = Array.from({length: 4}, () => Math.floor(Math.random() * 8) + 2);
+      answer = nums.reduce((a, b) => a * b, 1);
+      code = `nums = [${nums.join(', ')}]\nresult = 1\nfor x in nums:\n    result *= x\nprint(result)`;
+    } else if (taskType === 16) {
+      const texts = ['functional', 'procedural', 'objective', 'declarative'];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      const mid = Math.floor(text.length / 2);
+      answer = text.slice(mid);
+      code = `s = "${text}"\nprint(s[len(s)//2:])`;
+    } else if (taskType === 17) {
+      const nums = Array.from({length: 5}, () => Math.floor(Math.random() * 12) + 1);
+      answer = nums.map(n => n % 4).reduce((a, b) => a + b, 0);
+      code = `nums = [${nums.join(', ')}]\nprint(sum([x % 4 for x in nums]))`;
+    } else if (taskType === 18) {
+      const a = Math.floor(Math.random() * 50) + 20;
+      const b = Math.floor(Math.random() * 8) + 3;
+      answer = a % b + b;
+      code = `x = ${a}\ny = ${b}\nprint(x % y + y)`;
+    } else {
+      const texts = ['development', 'application', 'integration', 'optimization'];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      const step = Math.floor(Math.random() * 2) + 2;
+      answer = text.split('').filter((_, i) => i % step === 1).join('');
+      code = `s = "${text}"\nprint(s[1::${step}])`;
     }
   }
 

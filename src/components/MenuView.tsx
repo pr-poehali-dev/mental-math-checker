@@ -86,12 +86,12 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
           <TabsContent value="numeral" className="animate-scale-in">
             <TrainingCard
               icon="Binary"
-              title="Системы счисления"
-              description="Перевод чисел между различными системами"
+              title="Системы счисления (Двоичная, Восьмеричная, Десятичная, Шестнадцатеричная)"
+              description="Перевод чисел между различными системами счисления — основа работы с компьютерами"
               taskType="numeral-system"
-              easyLabel="0-15"
-              mediumLabel="0-127"
-              hardLabel="0-1023"
+              easyLabel="числа 0-15"
+              mediumLabel="числа 0-127"
+              hardLabel="числа 0-1023"
               onStartTraining={onStartTraining}
             />
           </TabsContent>
@@ -99,12 +99,12 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
           <TabsContent value="data" className="animate-scale-in">
             <TrainingCard
               icon="HardDrive"
-              title="Единицы данных"
-              description="Преобразование между битами, байтами, КБ, МБ, ГБ"
+              title="Единицы измерения данных (Биты, Байты, КБ, МБ, ГБ)"
+              description="Преобразование между единицами данных — важный навык для понимания объёмов памяти и хранения"
               taskType="data-units"
-              easyLabel="биты ↔ байты"
-              mediumLabel="+ КБ"
-              hardLabel="+ МБ, ГБ"
+              easyLabel="биты ↔ байты ↔ КБ"
+              mediumLabel="+ МБ"
+              hardLabel="все единицы + ГБ"
               onStartTraining={onStartTraining}
             />
           </TabsContent>
@@ -112,10 +112,10 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
           <TabsContent value="addition" className="animate-scale-in">
             <TrainingCard
               icon="Plus"
-              title="Сложение и вычитание"
-              description="Тренировка навыков сложения и вычитания"
+              title="Сложение и вычитание в уме"
+              description="Развитие навыков устного счёта для быстрых вычислений в повседневной жизни"
               taskType="addition"
-              easyLabel="числа до 100"
+              easyLabel="целые числа до 100"
               mediumLabel="десятичные дроби"
               hardLabel="большие числа"
               onStartTraining={onStartTraining}
@@ -125,11 +125,11 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
           <TabsContent value="multiplication" className="animate-scale-in">
             <TrainingCard
               icon="X"
-              title="Умножение"
-              description="Тренировка навыков умножения"
+              title="Умножение в уме"
+              description="Быстрое умножение чисел — полезный навык для решения математических задач"
               taskType="multiplication"
-              easyLabel="таблица умножения"
-              mediumLabel="числа до 25"
+              easyLabel="таблица умножения 2-10"
+              mediumLabel="числа до 25×25"
               hardLabel="десятичные дроби"
               onStartTraining={onStartTraining}
             />
@@ -138,12 +138,12 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
           <TabsContent value="square" className="animate-scale-in">
             <TrainingCard
               icon="Square"
-              title="Возведение в квадрат"
-              description="Тренировка навыков возведения чисел в квадрат"
+              title="Возведение в квадрат (Квадраты чисел)"
+              description="Мгновенное вычисление квадратов чисел — важный элемент для решения математических задач"
               taskType="square"
-              easyLabel="числа до 10"
-              mediumLabel="числа до 20"
-              hardLabel="числа до 100"
+              easyLabel="числа 1-10"
+              mediumLabel="числа 1-20"
+              hardLabel="числа 1-100"
               onStartTraining={onStartTraining}
             />
           </TabsContent>
@@ -151,12 +151,12 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
           <TabsContent value="python" className="animate-scale-in">
             <TrainingCard
               icon="Code2"
-              title="Python код"
-              description="Что выведет программа на Python?"
+              title="Предсказание вывода кода на Python"
+              description="Чтение и понимание кода Python — развитие навыков программирования через анализ программ"
               taskType="python"
-              easyLabel="базовые операции"
-              mediumLabel="строки и списки"
-              hardLabel="list comprehension"
+              easyLabel="базовые операции, строки"
+              mediumLabel="списки, срезы, циклы"
+              hardLabel="list comprehension, сложная логика"
               onStartTraining={onStartTraining}
             />
           </TabsContent>
