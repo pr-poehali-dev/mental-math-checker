@@ -8,6 +8,17 @@ interface StatsSectionProps {
 }
 
 const StatsSection = ({ stats, userProfile }: StatsSectionProps) => {
+  const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
+  let grade = 2;
+  if (accuracy >= 90) grade = 5;
+  else if (accuracy >= 75) grade = 4;
+  else if (accuracy >= 50) grade = 3;
+
+  const gradeColor = grade === 5 ? 'from-green-50 to-green-100 text-green-600' :
+                     grade === 4 ? 'from-blue-50 to-blue-100 text-blue-600' :
+                     grade === 3 ? 'from-yellow-50 to-yellow-100 text-yellow-600' :
+                     'from-red-50 to-red-100 text-red-600';
+
   return (
     <Card className="border-2">
       <CardHeader>
@@ -32,6 +43,18 @@ const StatsSection = ({ stats, userProfile }: StatsSectionProps) => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className={`bg-gradient-to-br ${gradeColor} col-span-1 md:col-span-3`}>
+              <CardContent className="pt-6">
+                <div className="text-center">
+                  <Icon name="Award" size={48} className="mx-auto mb-3" />
+                  <p className="text-sm text-gray-600 mb-2">Текущая оценка</p>
+                  <p className="text-6xl font-bold mb-2">{grade}</p>
+                  <p className="text-xs text-gray-500">
+                    {grade === 5 ? 'Отлично!' : grade === 4 ? 'Хорошо!' : grade === 3 ? 'Удовлетворительно' : 'Нужно больше практики'}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
             <Card className="bg-gradient-to-br from-blue-50 to-blue-100">
               <CardContent className="pt-6">
                 <div className="text-center">

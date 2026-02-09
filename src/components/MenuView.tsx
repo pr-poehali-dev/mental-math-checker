@@ -33,7 +33,7 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
               <TabsList className="grid w-full grid-cols-3 gap-2 bg-transparent h-auto">
                 <TabsTrigger value="addition" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Plus" size={16} className="mr-1" />
-                  <span className="hidden sm:inline">Сложение</span>
+                  <span className="hidden sm:inline">Сложение и вычитание</span>
                   <span className="sm:hidden">+/−</span>
                 </TabsTrigger>
                 <TabsTrigger value="multiplication" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
@@ -43,7 +43,7 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
                 </TabsTrigger>
                 <TabsTrigger value="square" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Square" size={16} className="mr-1" />
-                  <span className="hidden sm:inline">Квадрат</span>
+                  <span className="hidden sm:inline">Возведение в квадрат</span>
                   <span className="sm:hidden">x²</span>
                 </TabsTrigger>
               </TabsList>
@@ -54,12 +54,12 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
               <TabsList className="grid w-full grid-cols-3 gap-2 bg-transparent h-auto">
                 <TabsTrigger value="numeral" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Binary" size={16} className="mr-1" />
-                  <span className="hidden sm:inline">Системы</span>
+                  <span className="hidden sm:inline">Системы счисления</span>
                   <span className="sm:hidden">Bin</span>
                 </TabsTrigger>
                 <TabsTrigger value="data" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="HardDrive" size={16} className="mr-1" />
-                  <span className="hidden sm:inline">Данные</span>
+                  <span className="hidden sm:inline">Единицы данных</span>
                   <span className="sm:hidden">MB</span>
                 </TabsTrigger>
                 <TabsTrigger value="python" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
