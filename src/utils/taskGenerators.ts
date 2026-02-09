@@ -242,3 +242,105 @@ export const generateSquareTask = (level: DifficultyLevel): Task => {
     type: 'square'
   };
 };
+
+export const generatePythonTask = (level: DifficultyLevel): Task => {
+  let code: string;
+  let answer: string | number;
+
+  if (level === 'easy') {
+    const taskType = Math.floor(Math.random() * 5);
+    
+    if (taskType === 0) {
+      const a = Math.floor(Math.random() * 20) + 1;
+      const b = Math.floor(Math.random() * 20) + 1;
+      answer = a + b;
+      code = `x = ${a}\ny = ${b}\nprint(x + y)`;
+    } else if (taskType === 1) {
+      const a = Math.floor(Math.random() * 10) + 1;
+      const b = Math.floor(Math.random() * 5) + 1;
+      answer = a * b;
+      code = `x = ${a}\ny = ${b}\nprint(x * y)`;
+    } else if (taskType === 2) {
+      const text = ['Hello', 'Python', 'Code', 'Test'][Math.floor(Math.random() * 4)];
+      answer = text.length;
+      code = `text = "${text}"\nprint(len(text))`;
+    } else if (taskType === 3) {
+      const num = Math.floor(Math.random() * 10) + 1;
+      answer = num * 2;
+      code = `x = ${num}\nx = x * 2\nprint(x)`;
+    } else {
+      const str = ['abc', 'xyz', 'test'][Math.floor(Math.random() * 3)];
+      answer = str.toUpperCase();
+      code = `s = "${str}"\nprint(s.upper())`;
+    }
+  } else if (level === 'medium') {
+    const taskType = Math.floor(Math.random() * 6);
+    
+    if (taskType === 0) {
+      const a = Math.floor(Math.random() * 10) + 1;
+      const b = Math.floor(Math.random() * 10) + 1;
+      const c = Math.floor(Math.random() * 10) + 1;
+      answer = a + b * c;
+      code = `x = ${a}\ny = ${b}\nz = ${c}\nprint(x + y * z)`;
+    } else if (taskType === 1) {
+      const num = Math.floor(Math.random() * 20) + 10;
+      answer = num % 10;
+      code = `x = ${num}\nprint(x % 10)`;
+    } else if (taskType === 2) {
+      const text = 'Hello World';
+      const start = Math.floor(Math.random() * 3);
+      const end = start + Math.floor(Math.random() * 3) + 3;
+      answer = text.slice(start, end);
+      code = `text = "${text}"\nprint(text[${start}:${end}])`;
+    } else if (taskType === 3) {
+      const nums = [2, 5, 8, 3];
+      answer = Math.max(...nums);
+      code = `nums = [${nums.join(', ')}]\nprint(max(nums))`;
+    } else if (taskType === 4) {
+      const base = Math.floor(Math.random() * 5) + 2;
+      const exp = Math.floor(Math.random() * 3) + 2;
+      answer = Math.pow(base, exp);
+      code = `x = ${base}\ny = ${exp}\nprint(x ** y)`;
+    } else {
+      const text = 'python';
+      answer = text.replace('p', 'P');
+      code = `s = "${text}"\nprint(s.replace('p', 'P'))`;
+    }
+  } else {
+    const taskType = Math.floor(Math.random() * 6);
+    
+    if (taskType === 0) {
+      const nums = [3, 7, 2, 9, 4];
+      answer = nums.filter(n => n % 2 === 0).reduce((a, b) => a + b, 0);
+      code = `nums = [${nums.join(', ')}]\nresult = sum([x for x in nums if x % 2 == 0])\nprint(result)`;
+    } else if (taskType === 1) {
+      const text = 'Hello World';
+      answer = text.split(' ').map(w => w[0]).join('');
+      code = `text = "${text}"\nwords = text.split()\nprint(''.join([w[0] for w in words]))`;
+    } else if (taskType === 2) {
+      const a = Math.floor(Math.random() * 10) + 5;
+      const b = Math.floor(Math.random() * 5) + 1;
+      answer = Math.floor(a / b);
+      code = `x = ${a}\ny = ${b}\nprint(x // y)`;
+    } else if (taskType === 3) {
+      const nums = [1, 2, 3, 4];
+      answer = nums.map(n => n * 2).reduce((a, b) => a + b, 0);
+      code = `nums = [${nums.join(', ')}]\nresult = sum([x * 2 for x in nums])\nprint(result)`;
+    } else if (taskType === 4) {
+      const text = 'abcabc';
+      answer = text.length / 2;
+      code = `s = "${text}"\nprint(len(s) // 2)`;
+    } else {
+      const num = Math.floor(Math.random() * 50) + 10;
+      answer = String(num).split('').reverse().join('');
+      code = `x = ${num}\nprint(str(x)[::-1])`;
+    }
+  }
+
+  return {
+    question: `Что выведет эта программа?\n\n${code}`,
+    answer,
+    userAnswer: '',
+    type: 'python'
+  };
+};

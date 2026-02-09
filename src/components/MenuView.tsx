@@ -70,10 +70,19 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
             
             <div className="bg-white rounded-lg p-2 border-2 shadow-sm">
               <TabsList className="grid w-full grid-cols-2 gap-2 bg-transparent h-auto">
+                <TabsTrigger value="python" className="text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="Code2" size={16} className="mr-2" />
+                  Python
+                </TabsTrigger>
                 <TabsTrigger value="stats" className="text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="BarChart3" size={16} className="mr-2" />
                   Статистика
                 </TabsTrigger>
+              </TabsList>
+            </div>
+            
+            <div className="bg-white rounded-lg p-2 border-2 shadow-sm">
+              <TabsList className="grid w-full grid-cols-1 gap-2 bg-transparent h-auto">
                 <TabsTrigger value="history" className="text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="History" size={16} className="mr-2" />
                   История
@@ -289,6 +298,48 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
             </Card>
           </TabsContent>
 
+          <TabsContent value="python" className="animate-scale-in">
+            <Card className="border-2 hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Icon name="Code2" size={32} className="text-primary" />
+                  <div>
+                    <CardTitle>Python код</CardTitle>
+                    <CardDescription>Что выведет программа на Python?</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button 
+                    onClick={() => onStartTraining('python', 'easy')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-green-500 hover:bg-green-600"
+                  >
+                    <Icon name="SmilePlus" size={28} />
+                    <span>Лёгкий</span>
+                    <span className="text-sm opacity-90">базовые операции</span>
+                  </Button>
+                  <Button 
+                    onClick={() => onStartTraining('python', 'medium')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-yellow-500 hover:bg-yellow-600"
+                  >
+                    <Icon name="Zap" size={28} />
+                    <span>Средний</span>
+                    <span className="text-sm opacity-90">строки и списки</span>
+                  </Button>
+                  <Button 
+                    onClick={() => onStartTraining('python', 'hard')}
+                    className="h-24 text-lg flex flex-col gap-2 bg-red-500 hover:bg-red-600"
+                  >
+                    <Icon name="Flame" size={28} />
+                    <span>Сложный</span>
+                    <span className="text-sm opacity-90">list comprehension</span>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="stats" className="animate-scale-in">
             <Card className="border-2">
               <CardHeader>
@@ -446,7 +497,8 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
                                            record.taskType === 'data-units' ? 'Единицы данных' :
                                            record.taskType === 'addition' ? 'Сложение' :
                                            record.taskType === 'multiplication' ? 'Умножение' :
-                                           record.taskType === 'square' ? 'Квадрат' : 'Смешанная';
+                                           record.taskType === 'square' ? 'Квадрат' :
+                                           record.taskType === 'python' ? 'Python' : 'Смешанная';
 
                       return (
                         <Card key={record.id} className="p-4 hover:shadow-md transition-shadow">

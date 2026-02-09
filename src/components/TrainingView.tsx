@@ -96,7 +96,7 @@ const TrainingView = ({
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
-              <p className="text-2xl text-center font-medium text-gray-800">
+              <p className="text-2xl text-center font-medium text-gray-800 whitespace-pre-wrap">
                 {currentTask?.question}
               </p>
             </div>

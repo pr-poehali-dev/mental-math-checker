@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { DifficultyLevel, TaskType, Task, Stats, TrainingHistory, UserProfile } from '@/types/training';
-import { generateNumeralSystemTask, generateDataUnitsTask, generateAdditionTask, generateMultiplicationTask, generateSquareTask } from '@/utils/taskGenerators';
+import { generateNumeralSystemTask, generateDataUnitsTask, generateAdditionTask, generateMultiplicationTask, generateSquareTask, generatePythonTask } from '@/utils/taskGenerators';
 import { playCorrectSound, playWrongSound } from '@/utils/sounds';
 import MenuView from '@/components/MenuView';
 import TrainingView from '@/components/TrainingView';
@@ -90,6 +90,9 @@ const Index = () => {
       case 'square':
         task = generateSquareTask(level);
         break;
+      case 'python':
+        task = generatePythonTask(level);
+        break;
       default:
         task = generateNumeralSystemTask(level);
     }
@@ -122,6 +125,8 @@ const Index = () => {
     let isCorrect = false;
     if (currentTask.type === 'numeral-system') {
       isCorrect = normalizedInput === String(currentTask.answer).toUpperCase();
+    } else if (currentTask.type === 'python') {
+      isCorrect = userInput.trim() === String(currentTask.answer);
     } else {
       const userAnswerNum = parseFloat(normalizedInput);
       const answerNum = typeof currentTask.answer === 'string' ? parseFloat(currentTask.answer) : currentTask.answer;

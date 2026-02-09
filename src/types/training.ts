@@ -1,5 +1,5 @@
 export type DifficultyLevel = 'easy' | 'medium' | 'hard';
-export type TaskType = 'numeral-system' | 'data-units' | 'addition' | 'multiplication' | 'square' | 'mixed';
+export type TaskType = 'numeral-system' | 'data-units' | 'addition' | 'multiplication' | 'square' | 'python' | 'mixed';
 
 export interface Task {
   question: string;
