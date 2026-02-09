@@ -3,7 +3,7 @@ export type TaskType = 'numeral-system' | 'data-units' | 'addition' | 'multiplic
 
 export interface Task {
   question: string;
-  answer: number;
+  answer: number | string;
   userAnswer: string;
   type: TaskType;
 }

@@ -121,10 +121,11 @@ const Index = () => {
     
     let isCorrect = false;
     if (currentTask.type === 'numeral-system') {
-      isCorrect = normalizedInput === currentTask.answer.toString().toUpperCase();
+      isCorrect = normalizedInput === String(currentTask.answer).toUpperCase();
     } else {
       const userAnswerNum = parseFloat(normalizedInput);
-      isCorrect = Math.abs(userAnswerNum - currentTask.answer) < 0.01;
+      const answerNum = typeof currentTask.answer === 'string' ? parseFloat(currentTask.answer) : currentTask.answer;
+      isCorrect = Math.abs(userAnswerNum - answerNum) < 0.01;
     }
 
     setFeedback(isCorrect ? 'correct' : 'wrong');

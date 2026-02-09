@@ -12,7 +12,7 @@ export const generateNumeralSystemTask = (level: DifficultyLevel): Task => {
   const decimalNumber = Math.floor(Math.random() * maxNumber) + 1;
   
   const fromNumber = decimalNumber.toString(fromBase).toUpperCase();
-  const answer = parseInt(decimalNumber.toString(toBase), toBase);
+  const answer = decimalNumber.toString(toBase).toUpperCase();
 
   const baseNames: { [key: number]: string } = {
     2: 'двоичной',
