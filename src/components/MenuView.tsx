@@ -43,46 +43,52 @@ const MenuView = ({ stats, history, userProfile, onStartTraining, onClearHistory
         <Tabs defaultValue="addition" className="w-full">
           <div className="mb-8 space-y-4">
             <div className="bg-white rounded-lg p-2 border-2 shadow-sm">
-              <p className="text-sm font-medium text-gray-600 mb-2 px-2">Тренировки:</p>
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-2 bg-transparent h-auto">
+              <p className="text-sm font-medium text-gray-600 mb-2 px-2">Математика:</p>
+              <TabsList className="grid w-full grid-cols-3 gap-2 bg-transparent h-auto">
                 <TabsTrigger value="addition" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Plus" size={16} className="mr-1" />
-                  Сложение и вычитание
+                  <span className="hidden sm:inline">Сложение</span>
+                  <span className="sm:hidden">+/−</span>
                 </TabsTrigger>
                 <TabsTrigger value="multiplication" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="X" size={16} className="mr-1" />
-                  Умножение
+                  <span className="hidden sm:inline">Умножение</span>
+                  <span className="sm:hidden">×</span>
                 </TabsTrigger>
                 <TabsTrigger value="square" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Square" size={16} className="mr-1" />
-                  Возведение в квадрат
+                  <span className="hidden sm:inline">Квадрат</span>
+                  <span className="sm:hidden">x²</span>
                 </TabsTrigger>
+              </TabsList>
+            </div>
+            
+            <div className="bg-white rounded-lg p-2 border-2 shadow-sm">
+              <p className="text-sm font-medium text-gray-600 mb-2 px-2">Информатика:</p>
+              <TabsList className="grid w-full grid-cols-3 gap-2 bg-transparent h-auto">
                 <TabsTrigger value="numeral" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="Binary" size={16} className="mr-1" />
-                  Системы счисления
+                  <span className="hidden sm:inline">Системы</span>
+                  <span className="sm:hidden">Bin</span>
                 </TabsTrigger>
                 <TabsTrigger value="data" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="HardDrive" size={16} className="mr-1" />
-                  Единицы данных
+                  <span className="hidden sm:inline">Данные</span>
+                  <span className="sm:hidden">MB</span>
+                </TabsTrigger>
+                <TabsTrigger value="python" className="text-xs sm:text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
+                  <Icon name="Code2" size={16} className="mr-1" />
+                  Python
                 </TabsTrigger>
               </TabsList>
             </div>
             
             <div className="bg-white rounded-lg p-2 border-2 shadow-sm">
               <TabsList className="grid w-full grid-cols-2 gap-2 bg-transparent h-auto">
-                <TabsTrigger value="python" className="text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
-                  <Icon name="Code2" size={16} className="mr-2" />
-                  Python
-                </TabsTrigger>
                 <TabsTrigger value="stats" className="text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="BarChart3" size={16} className="mr-2" />
                   Статистика
                 </TabsTrigger>
-              </TabsList>
-            </div>
-            
-            <div className="bg-white rounded-lg p-2 border-2 shadow-sm">
-              <TabsList className="grid w-full grid-cols-1 gap-2 bg-transparent h-auto">
                 <TabsTrigger value="history" className="text-sm py-3 data-[state=active]:bg-primary data-[state=active]:text-white">
                   <Icon name="History" size={16} className="mr-2" />
                   История
