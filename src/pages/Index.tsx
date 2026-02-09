@@ -117,11 +117,15 @@ const Index = () => {
     if (!currentTask || userInput.trim() === '') return;
 
     setTimerActive(false);
-    const normalizedInput = userInput.trim().replace(',', '.');
-    const userAnswerNum = currentTask.type === 'numeral-system' 
-      ? parseInt(normalizedInput, 16)
-      : parseFloat(normalizedInput);
-    const isCorrect = Math.abs(userAnswerNum - currentTask.answer) < 0.01;
+    const normalizedInput = userInput.trim().toUpperCase().replace(',', '.');
+    
+    let isCorrect = false;
+    if (currentTask.type === 'numeral-system') {
+      isCorrect = normalizedInput === currentTask.answer.toString().toUpperCase();
+    } else {
+      const userAnswerNum = parseFloat(normalizedInput);
+      isCorrect = Math.abs(userAnswerNum - currentTask.answer) < 0.01;
+    }
 
     setFeedback(isCorrect ? 'correct' : 'wrong');
     
